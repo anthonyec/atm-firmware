@@ -1,0 +1,16 @@
+dist
+node_modules
+bower_components
+jspm_packages
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.sass-cache
+.Trashes
+npm-debug.log
+ehthumbs.db
+Thumbs.dbnode_modules
+tmp
+newrelic_agent.log
+# excel lock files
+~$*
