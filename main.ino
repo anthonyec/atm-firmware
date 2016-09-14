@@ -7,9 +7,6 @@ Adafruit_Thermal printer;
 void setup() {
   // Setup WiFi, the device can store up to 5 credentials
   WiFi.setCredentials("ATM_2.4G", "c0pb0trulez");
-  WiFi.setCredentials("EE-swnjq2", "law-exile-past");
-  WiFi.setCredentials("BTHub5-8XZ8 2.4GHz", "374a648563");
-  WiFi.setCredentials("Signal Noise", "S1gnalN01se");
 
   // Connect to USB serial
   Serial.begin(9600);
@@ -77,6 +74,10 @@ void loop() {
   if (!client.connected()) {
     client.stop();
   }
+
+  // if (Particle.connected() == false) {
+  //   System.reset();
+  // }
 }
 
 // https://community.particle.io/t/spark-function-limits/952/6
