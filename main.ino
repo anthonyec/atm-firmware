@@ -6,10 +6,18 @@
 #include "images/shocked.h"
 #include "images/confused.h"
 
+// http://bit.ly/2crnrj0
+SYSTEM_MODE(SEMI_AUTOMATIC);
+
 TCPClient client;
 Adafruit_Thermal printer;
 
+uint8_t retry_count = 0;
+unsigned long old_time = millis();
+
 void setup() {
+  WiFi.on();
+
   // Setup WiFi, the device can store up to 5 credentials
   WiFi.setCredentials("ATM_2.4G", "c0pb0trulez");
 
@@ -33,6 +41,23 @@ void setup() {
 }
 
 void loop() {
+  if (millis() - old_time >= 2000) {
+    if (retry_count < 10) {
+      if (!WiFi.ready()) {
+        WiFi.connect();
+        retry_count++;
+      } else if (!Particle.connected()) {
+        Particle.connect();
+        retry_count++;
+      }
+    } else {
+      WiFi.off();
+      retry_count = 0;
+      WiFi.on();
+    }
+    old_time = millis();
+  }
+
   // Observe the bytes coming in to see if they match any formatting rules
   // Bytes 14 to 22 dont seem to be used for anything else
   while(client.available()) {
