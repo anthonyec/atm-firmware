@@ -1,5 +1,10 @@
 // Need this empty line to stop big compile errors hmmm
 #include "Adafruit_Thermal.h"
+#include "images/eyes.h"
+#include "images/sad.h"
+#include "images/happy.h"
+#include "images/shocked.h"
+#include "images/confused.h"
 
 TCPClient client;
 Adafruit_Thermal printer;
@@ -20,9 +25,6 @@ void setup() {
   // Set up Particle cloud functions
   Particle.function("printData", printData);
   Particle.function("printText", printText);
-
-  // Printer formatting options
-  printer.setLineHeight(35);
 
   // Debug stuff
   String ssid = WiFi.SSID();
@@ -63,6 +65,21 @@ void loop() {
         break;
       case 22:
         printer.setSize('L');
+        break;
+      case 23:
+        printer.printBitmap(eyes_width, eyes_height, eyes_data);
+        break;
+      case 24:
+        printer.printBitmap(happy_width, happy_height, happy_data);
+        break;
+      case 25:
+        printer.printBitmap(sad_width, sad_height, sad_data);
+        break;
+      case 26:
+        printer.printBitmap(confused_width, confused_height, confused_data);
+        break;
+      case 27:
+        printer.printBitmap(shocked_width, shocked_height, shocked_data);
         break;
       default:
         // By default send the byte to the printer. Usually this will just be
@@ -131,6 +148,5 @@ int printData(String data) {
 
 int printText(String text) {
   printer.println(text);
-  printer.feed(5);
   return 1;
 }

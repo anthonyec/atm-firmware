@@ -1,3 +1,8 @@
 Adafruit_Thermal.h
 Adafruit_Thermal.cpp
 main.ino
+images/eyes.h
+images/happy.h
+images/sad.h
+images/confused.h
+images/shocked.h
